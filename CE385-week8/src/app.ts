@@ -1,7 +1,8 @@
 // src/app.ts — ที่ประกอบร่าง
 // ไฟล์นี้ตอบคำถามเดียว: "คำขอหนึ่งใบเดินผ่านอะไรบ้าง ตามลำดับไหน"
 // ไม่มี app.listen ที่นี่ เพื่อให้เอา app ไปใช้กับการทดสอบได้ด้วย
-import express from "express";
+import express from "express"; 
+import cors from "cors"; 
 import { logger } from "./middlewares/logger.js";
 import { errorHandler, notFoundHandler } from "./middlewares/error-handler.js";
 import { studentsRouter } from "./routes/student.route.js";
@@ -9,6 +10,7 @@ import { studentsRouter } from "./routes/student.route.js";
 export const app = express();
 
 /* ---------- 1) middleware ที่ทุกคำขอต้องผ่าน ---------- */
+app.use(cors({ origin: "http://localhost:5173" }));  
 app.use(express.json());   // แปลง JSON ใน body ให้เป็น object · ลืมบรรทัดนี้ req.body จะเป็น undefined
 app.use(logger);           // บันทึกทุกคำขอ
 
